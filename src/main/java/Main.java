@@ -31,7 +31,6 @@ public class Main {
       System.out.println(parallelResult);
       System.out.println("Parallel: " + ChronoUnit.MILLIS.between(start, end));
 
-
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -48,13 +47,13 @@ class BooleanMatrix {
 
   public BooleanMatrix multiply(BooleanMatrix other) {
     BooleanMatrix resultMatrix = new BooleanMatrix(size());
-    for (int i = 0; i < size(); i ++) {
-      for (int j = 0; j < size(); j ++) {
+    for (int i = 0; i < size(); i++) {
+      for (int j = 0; j < size(); j++) {
         boolean sum = false;
         for (int k = 0; k < size(); k++) {
-          sum = sum ^ (this.get(i, k) && other.get(k, j));
+          sum = sum ^ (this.matrix[i][k] && other.matrix[k][j]);
         }
-        resultMatrix.matrix[i][j] =  sum;
+        resultMatrix.matrix[i][j] = sum;
       }
     }
     return resultMatrix;
@@ -64,32 +63,28 @@ class BooleanMatrix {
     ForkJoinPool commonPool = ForkJoinPool.commonPool();
     BooleanMatrix resultMatrix = new BooleanMatrix(size());
     MatrixMultiplyRecursiveTask[][] dividedTasks = new MatrixMultiplyRecursiveTask[size()][size()];
-    for (int i = 0; i < size(); i ++) {
-      for (int j = 0; j < size(); j ++) {
-        dividedTasks[i][j] = new MatrixMultiplyRecursiveTask(this.matrix, other.matrix, new Position(i, j));
+    for (int i = 0; i < size(); i++) {
+      for (int j = 0; j < size(); j++) {
+        dividedTasks[i][j] =
+            new MatrixMultiplyRecursiveTask(this.matrix, other.matrix, new Position(i, j));
         commonPool.execute(dividedTasks[i][j]);
       }
     }
-    for (int i = 0; i < size(); i ++) {
-      for (int j = 0; j < size(); j ++) {
+    for (int i = 0; i < size(); i++) {
+      for (int j = 0; j < size(); j++) {
         resultMatrix.matrix[i][j] = dividedTasks[i][j].join();
       }
     }
     return resultMatrix;
   }
 
-  public boolean get(int i, int j) {
-    return matrix[i][j];
-  }
-
   public int size() {
     return matrix.length;
   }
 
-
   public void populateRamdomly() {
     for (int i = 0; i < size(); i++) {
-      for (int j = 0; j < size(); j ++) {
+      for (int j = 0; j < size(); j++) {
         matrix[i][j] = new Random().nextBoolean();
       }
     }
@@ -100,10 +95,10 @@ class BooleanMatrix {
 
     String string = "BooleanMatrix{" + "matrix=\n";
 
-    for (int i = 0; i < size(); i ++ ) {
-      string+= Arrays.toString(matrix[i])+ "\n";
+    for (int i = 0; i < size(); i++) {
+      string += Arrays.toString(matrix[i]) + "\n";
     }
-    string+= '}';
+    string += '}';
     return string;
   }
 }
@@ -127,7 +122,6 @@ class MatrixMultiplyRecursiveTask extends RecursiveTask<Boolean> {
     }
     return sum;
   }
-
 }
 
 class Position {
