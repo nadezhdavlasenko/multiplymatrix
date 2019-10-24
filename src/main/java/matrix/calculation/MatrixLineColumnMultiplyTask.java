@@ -3,9 +3,12 @@ package matrix.calculation;
 import java.util.concurrent.RecursiveTask;
 
 public class MatrixLineColumnMultiplyTask extends RecursiveTask<Boolean> {
-  boolean[][] matrix1;
-  boolean[][] matrix2;
-  Position position;
+
+  private static final long serialVersionUID = 4246099615319272220L;
+
+  private boolean[][] matrix1;
+  private boolean[][] matrix2;
+  private Position position;
 
   public MatrixLineColumnMultiplyTask(boolean[][] matrix1, boolean[][] matrix2, Position position) {
     this.matrix1 = matrix1;

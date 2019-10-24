@@ -1,6 +1,5 @@
 package matrix.calculation;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ForkJoinPool;
 
@@ -69,9 +68,7 @@ public class BooleanMatrix {
 
   @Override
   public String toString() {
-
     String string = "BooleanMatrix{" + "\n";
-
     for (int i = 0; i < size(); i++) {
       for (int j = 0; j < size(); j++) {
         string += matrix[i][j] ? "1," : "0,";

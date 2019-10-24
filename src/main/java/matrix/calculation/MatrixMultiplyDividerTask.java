@@ -3,19 +3,19 @@ package matrix.calculation;
 import java.util.concurrent.RecursiveTask;
 
 public class MatrixMultiplyDividerTask extends RecursiveTask<boolean[][]> {
-  boolean[][] matrix1;
-  boolean[][] matrix2;
-  int startLine;
-  int endLine;
-  boolean[][] result;
+  private static final long serialVersionUID = -671929630868022196L;
+  private boolean[][] matrix1;
+  private boolean[][] matrix2;
+  private int startLine;
+  private int endLine;
+  private boolean[][] resultMatrix;
 
-  public MatrixMultiplyDividerTask(
-      boolean[][] matrix1, boolean[][] matrix2, int startLine, int endLine) {
+  MatrixMultiplyDividerTask(boolean[][] matrix1, boolean[][] matrix2, int startLine, int endLine) {
     this.matrix1 = matrix1;
     this.matrix2 = matrix2;
     this.startLine = startLine;
     this.endLine = endLine;
-    result = new boolean[matrix1.length][matrix1.length];
+    resultMatrix = new boolean[matrix1.length][matrix1.length];
   }
 
   @Override
@@ -37,28 +37,24 @@ public class MatrixMultiplyDividerTask extends RecursiveTask<boolean[][]> {
       }
     }
     for (int i = startLine; i < endLine; i++) {
-      for (int j = 0; j < result.length; j++) {
-        result[i][j] = dividedTasks[i][j].join();
+      for (int j = 0; j < resultMatrix.length; j++) {
+        resultMatrix[i][j] = dividedTasks[i][j].join();
       }
     }
-    return result;
+    return resultMatrix;
   }
 
   private boolean[][] divideForComputing() {
-    int topStartLine = startLine;
-    int topEndLine = startLine + (endLine - startLine) / 2 + 1;
+    int middle = startLine + (endLine - startLine) / 2 + 1;
     MatrixMultiplyDividerTask top =
-        new MatrixMultiplyDividerTask(matrix1, matrix2, topStartLine, topEndLine);
+        new MatrixMultiplyDividerTask(matrix1, matrix2, startLine, middle);
     top.fork();
-    int bottomStartLine = topEndLine;
-    int bottomEndline = endLine;
     MatrixMultiplyDividerTask bottom =
-        new MatrixMultiplyDividerTask(matrix1, matrix2, bottomStartLine, bottomEndline);
+        new MatrixMultiplyDividerTask(matrix1, matrix2, middle, endLine);
     bottom.fork();
 
-    System.arraycopy(top.invoke(), topStartLine, result, topStartLine, topEndLine - topStartLine);
-    System.arraycopy(
-        bottom.invoke(), bottomStartLine, result, bottomStartLine, bottomEndline - bottomStartLine);
-    return result;
+    System.arraycopy(top.invoke(), startLine, resultMatrix, startLine, middle - startLine);
+    System.arraycopy(bottom.invoke(), middle, resultMatrix, middle, endLine - middle);
+    return resultMatrix;
   }
 }
