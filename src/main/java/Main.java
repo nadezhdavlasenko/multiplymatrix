@@ -18,23 +18,25 @@ public class Main {
       BooleanMatrix matrix2 = new BooleanMatrix(size);
       matrix2.populateRamdomly();
       System.out.println(matrix2);
-      LocalDateTime start = LocalDateTime.now();
+
+      LocalDateTime startSerial = LocalDateTime.now();
       BooleanMatrix result = matrix1.multiply(matrix2);
-      LocalDateTime end = LocalDateTime.now();
+      LocalDateTime endSerial = LocalDateTime.now();
       System.out.println(result);
-      System.out.println("Serial: " + ChronoUnit.MILLIS.between(start, end));
 
-      start = LocalDateTime.now();
+      LocalDateTime startParallel = LocalDateTime.now();
       BooleanMatrix parallelResult = matrix1.multiplyParallel(matrix2);
-      end = LocalDateTime.now();
+      LocalDateTime endParallel = LocalDateTime.now();
       System.out.println(parallelResult);
-      System.out.println("Parallel: " + ChronoUnit.MILLIS.between(start, end));
 
-      start = LocalDateTime.now();
+      LocalDateTime startMoreParallel = LocalDateTime.now();
       BooleanMatrix parallelResult2 = matrix1.multiplyParallel2(matrix2);
-      end = LocalDateTime.now();
+      LocalDateTime endMoreParallel = LocalDateTime.now();
       System.out.println(parallelResult2);
-      System.out.println("Parallel2: " + ChronoUnit.MILLIS.between(start, end));
+
+      System.out.println("Serial: " + ChronoUnit.MILLIS.between(startSerial, endSerial));
+      System.out.println("Parallel: " + ChronoUnit.MILLIS.between(startParallel, endParallel));
+      System.out.println("More Parallel: " + ChronoUnit.MILLIS.between(startMoreParallel, endMoreParallel));
 
     } catch (IOException e) {
       e.printStackTrace();

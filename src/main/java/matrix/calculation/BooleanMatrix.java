@@ -52,20 +52,6 @@ public class BooleanMatrix {
     resultMatrix.matrix =
         commonPool.invoke(
             new MatrixMultiplyDividerTask(this.matrix, other.matrix, 0, matrix.length));
-    //    MatrixLineColumnMultiplyTask[][] dividedTasks = new
-    // MatrixLineColumnMultiplyTask[size()][size()];
-    //    for (int i = 0; i < size(); i++) {
-    //      for (int j = 0; j < size(); j++) {
-    //        dividedTasks[i][j] =
-    //            new MatrixLineColumnMultiplyTask(this.matrix, other.matrix, new Position(i, j));
-    //        commonPool.execute(dividedTasks[i][j]);
-    //      }
-    //    }
-    //    for (int i = 0; i < size(); i++) {
-    //      for (int j = 0; j < size(); j++) {
-    //        resultMatrix.matrix[i][j] = dividedTasks[i][j].join();
-    //      }
-    //    }
     return resultMatrix;
   }
 
