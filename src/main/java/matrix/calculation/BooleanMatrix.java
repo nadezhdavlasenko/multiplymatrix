@@ -41,7 +41,7 @@ public class BooleanMatrix {
     return resultMatrix;
   }
 
-  public BooleanMatrix multiplyParallel2(BooleanMatrix other) {
+  public BooleanMatrix multiplyMoreParallel(BooleanMatrix other) {
     ForkJoinPool commonPool = ForkJoinPool.commonPool();
     BooleanMatrix resultMatrix = new BooleanMatrix(size());
     resultMatrix.matrix =
@@ -64,7 +64,7 @@ public class BooleanMatrix {
 
   @Override
   public String toString() {
-    String string = "BooleanMatrix{" + "\n";
+    String string = "{" + "\n";
     for (int i = 0; i < size(); i++) {
       for (int j = 0; j < size(); j++) {
         string += matrix[i][j] ? "1," : "0,";

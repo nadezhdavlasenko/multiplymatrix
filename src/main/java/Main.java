@@ -14,33 +14,42 @@ public class Main {
       int size = Integer.parseInt(reader.readLine());
       BooleanMatrix matrix1 = new BooleanMatrix(size);
       matrix1.populateRamdomly();
+      System.out.println("Matrix A");
       System.out.println(matrix1);
       BooleanMatrix matrix2 = new BooleanMatrix(size);
       matrix2.populateRamdomly();
+      System.out.println("Matrix B");
       System.out.println(matrix2);
 
+      System.out.println("- Serial Result -");
       LocalDateTime startSerial = LocalDateTime.now();
       BooleanMatrix result = matrix1.multiply(matrix2);
       LocalDateTime endSerial = LocalDateTime.now();
       System.out.println(result);
 
+      System.out.println("- Parallel Result -");
       LocalDateTime startParallel = LocalDateTime.now();
       BooleanMatrix parallelResult = matrix1.multiplyParallel(matrix2);
       LocalDateTime endParallel = LocalDateTime.now();
       System.out.println(parallelResult);
 
+      System.out.println("- More Parallel Result -");
       LocalDateTime startMoreParallel = LocalDateTime.now();
-      BooleanMatrix parallelResult2 = matrix1.multiplyParallel2(matrix2);
+      BooleanMatrix parallelResult2 = matrix1.multiplyMoreParallel(matrix2);
       LocalDateTime endMoreParallel = LocalDateTime.now();
       System.out.println(parallelResult2);
 
-      System.out.println("Serial: " + ChronoUnit.MILLIS.between(startSerial, endSerial));
-      System.out.println("Parallel: " + ChronoUnit.MILLIS.between(startParallel, endParallel));
-      System.out.println("More Parallel: " + ChronoUnit.MILLIS.between(startMoreParallel, endMoreParallel));
+      System.out.println(
+          "Serial: " + ChronoUnit.MILLIS.between(startSerial, endSerial) + " MILLIS");
+      System.out.println(
+          "Parallel: " + ChronoUnit.MILLIS.between(startParallel, endParallel) + " MILLIS");
+      System.out.println(
+          "More Parallel: "
+              + ChronoUnit.MILLIS.between(startMoreParallel, endMoreParallel)
+              + " MILLIS");
 
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 }
-
