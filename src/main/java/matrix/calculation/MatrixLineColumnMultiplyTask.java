@@ -10,7 +10,7 @@ public class MatrixLineColumnMultiplyTask extends RecursiveTask<Boolean> {
   private boolean[][] matrix2;
   private Position position;
 
-  public MatrixLineColumnMultiplyTask(boolean[][] matrix1, boolean[][] matrix2, Position position) {
+  MatrixLineColumnMultiplyTask(boolean[][] matrix1, boolean[][] matrix2, Position position) {
     this.matrix1 = matrix1;
     this.matrix2 = matrix2;
     this.position = position;
@@ -18,10 +18,6 @@ public class MatrixLineColumnMultiplyTask extends RecursiveTask<Boolean> {
 
   @Override
   protected Boolean compute() {
-    boolean sum = false;
-    for (int k = 0; k < matrix1.length; k++) {
-      sum = sum ^ (matrix1[position.i][k] && matrix2[k][position.j]);
-    }
-    return sum;
+    return CellCalculator.calculateCell(matrix1, matrix2, position);
   }
 }

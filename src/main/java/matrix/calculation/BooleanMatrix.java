@@ -15,11 +15,7 @@ public class BooleanMatrix {
     BooleanMatrix resultMatrix = new BooleanMatrix(size());
     for (int i = 0; i < size(); i++) {
       for (int j = 0; j < size(); j++) {
-        boolean sum = false;
-        for (int k = 0; k < size(); k++) {
-          sum = sum ^ (this.matrix[i][k] && other.matrix[k][j]);
-        }
-        resultMatrix.matrix[i][j] = sum;
+        resultMatrix.matrix[i][j] = CellCalculator.calculateCell(this.matrix, other.matrix, new Position(i, j));
       }
     }
     return resultMatrix;

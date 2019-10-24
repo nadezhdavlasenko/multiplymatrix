@@ -46,6 +46,7 @@ public class MatrixMultiplyDividerTask extends RecursiveTask<boolean[][]> {
 
   private boolean[][] divideForComputing() {
     int middle = startLine + (endLine - startLine) / 2 + 1;
+
     MatrixMultiplyDividerTask top =
         new MatrixMultiplyDividerTask(matrix1, matrix2, startLine, middle);
     top.fork();
@@ -55,6 +56,7 @@ public class MatrixMultiplyDividerTask extends RecursiveTask<boolean[][]> {
 
     System.arraycopy(top.invoke(), startLine, resultMatrix, startLine, middle - startLine);
     System.arraycopy(bottom.invoke(), middle, resultMatrix, middle, endLine - middle);
+
     return resultMatrix;
   }
 }
