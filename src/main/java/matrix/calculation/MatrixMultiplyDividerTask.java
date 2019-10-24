@@ -15,7 +15,7 @@ public class MatrixMultiplyDividerTask extends RecursiveTask<boolean[][]> {
     this.matrix2 = matrix2;
     this.startLine = startLine;
     this.endLine = endLine;
-    boolean[][] result = new boolean[matrix1.length][matrix1.length];
+    result = new boolean[matrix1.length][matrix1.length];
   }
 
   @Override

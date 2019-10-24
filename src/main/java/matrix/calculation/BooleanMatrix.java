@@ -70,10 +70,13 @@ public class BooleanMatrix {
   @Override
   public String toString() {
 
-    String string = "BooleanMatrix{" + "matrix=\n";
+    String string = "BooleanMatrix{" + "\n";
 
     for (int i = 0; i < size(); i++) {
-      string += Arrays.toString(matrix[i]) + "\n";
+      for (int j = 0; j < size(); j++) {
+        string += matrix[i][j] ? "1," : "0,";
+      }
+      string += "\n";
     }
     string += '}';
     return string;
