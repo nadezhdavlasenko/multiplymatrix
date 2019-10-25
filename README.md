@@ -9,6 +9,6 @@ Parallel approaches use ForkJoinPool.
 
 SUMMARY:
 
-3d algorithm is the most efficient for small matrices, but 2nd for bigger ones. As parallelism overhead increase with growing of matrix size. 
+3d algorithm is the most efficient for small matrices, but 2nd for bigger ones. As parallelism overhead increases during the growing of a matrix size. 
 
 
